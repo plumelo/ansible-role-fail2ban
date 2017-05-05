@@ -1,5 +1,28 @@
 ---
-- hosts: localhost
-  remote_user: root
+
+- name: fail2ban
+  hosts: all
+  become: true
+  gather_facts: true
   roles:
-    - fail2ban
+    - role: plumelo.fail2ban
+      fail2ban_configs:
+        loglevel: 1
+      fail2ban_defaults:
+        ignoreip: 127.0.0.1
+        bantime: 86400
+        destemail: vasile@plumelo.com
+        sender: root@localdomain.local
+        mta: mail
+        banaction: iptables-multiport
+        action: "%(action_mwl)s"
+      fail2ban_jails:
+        sshd:
+          maxretry: 3
+        sshd-ddos: {}
+      fail2ban_remove_jails:
+        - sshd-ddos
+      fail2ban_filters:
+        dovecot-pop3imap:
+          failregex: ""
+          ignoreregex: ""

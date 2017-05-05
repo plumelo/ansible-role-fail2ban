@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.hostname = "fail2ban"
+  config.vm.box = "kapke/xenial64-lxc"
+
+  config.vm.provider :lxc do |lxc, override|
+    lxc.container_name = "fail2ban"
+  end
+
+  config.vm.provision 'ansible' do |ansible|
+    ansible.playbook = 'test.yml'
+    ansible.verbose = "vv"
+  end
+end
