@@ -1,0 +1,6 @@
+#{{ ansible_managed }}
+
+[DEFAULT]
+{% for option, value in fail2ban_defaults.iteritems() %}
+{{option}}={{value}}
+{% endfor %}

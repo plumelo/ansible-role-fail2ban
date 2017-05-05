@@ -1,0 +1,43 @@
+---
+
+- name: fail2ban fail2ban_local config (defaults)
+  template:
+    src: etc/fail2ban/fail2ban.local.j2
+    dest: /etc/fail2ban/fail2ban.local
+  tags: fail2ban
+
+- name: fail2ban local config (defaults)
+  template:
+    src: etc/fail2ban/jail.local.j2
+    dest: /etc/fail2ban/jail.local
+  tags: fail2ban
+
+- name: fail2ban jail config (jails)
+  template:
+    src: etc/fail2ban/jail.d/jail.conf.j2
+    dest: "/etc/fail2ban/jail.d/{{ item.key }}.conf"
+  with_dict: "{{ fail2ban_jails }}"
+  when: item.key not in fail2ban_remove_jails
+  notify:
+    - restart fail2ban
+  tags: fail2ban
+
+- name: fail2ban filters config
+  template:
+    src: etc/fail2ban/filter.d/filter.conf.j2
+    dest: "/etc/fail2ban/filter.d/{{ item.key }}.conf"
+  with_dict: "{{ fail2ban_filters }}"
+  when: item.key not in fail2ban_remove_filters
+  notify:
+  - restart fail2ban
+  tags: fail2ban
+
+- name: fail2ban actions config
+  template:
+    src: etc/fail2ban/action.d/action.conf.j2
+    dest: "/etc/fail2ban/action.d/{{ item.key }}.conf"
+  with_dict: "{{ fail2ban_actions }}"
+  when: item.key not in fail2ban_remove_actions
+  notify:
+  - restart fail2ban
+  tags: fail2ban

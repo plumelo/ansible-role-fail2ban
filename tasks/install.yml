@@ -1,0 +1,25 @@
+---
+
+- name: Add the fail2ban ppa
+  apt_repository:
+    repo: 'ppa:jan-hoffmann/fail2ban'
+    state: present
+    update_cache: true
+  when: fail2ban_use_ppa|bool
+  tags: fail2ban
+
+- name: Install fail2ban
+  apt:
+    pkg: fail2ban
+    state: present
+    update_cache: true
+  notify:
+    - restart fail2ban
+  tags: fail2ban
+
+- name: ensure fail2ban starts on a fresh reboot
+  service:
+    name: fail2ban
+    state: started
+    enabled: yes
+  tags: fail2ban

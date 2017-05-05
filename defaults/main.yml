@@ -1,0 +1,19 @@
+---
+fail2ban_use_ppa: false
+fail2ban_pkgs:
+  - fail2ban
+fail2ban_extra_pkgs: []
+
+#Fail2ban daemon config
+fail2ban_config: {}
+
+#Fail2ban local defaults(jails)
+fail2ban_defaults: {}
+
+fail2ban_jails: {}
+fail2ban_filters: {}
+fail2ban_actions: {}
+
+fail2ban_remove_jails: []
+fail2ban_remove_filters: []
+fail2ban_remove_actions: []

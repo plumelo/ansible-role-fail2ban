@@ -1,0 +1,10 @@
+---
+
+- name: Remove unwanted jails
+  file:
+    path: "/etc/fail2ban/jail.d/{{ item }}.conf"
+    state: absent
+  with_items: "{{ fail2ban_remove_jails }}"
+  notify:
+    - restart fail2ban
+  tags: fail2ban
