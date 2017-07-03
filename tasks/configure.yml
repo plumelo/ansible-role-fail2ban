@@ -1,15 +1,17 @@
 ---
 
-- name: fail2ban fail2ban_local config (defaults)
+- name: fail2ban config
   template:
     src: etc/fail2ban/fail2ban.local.j2
     dest: /etc/fail2ban/fail2ban.local
+  when: fail2ban_config is mapping
   tags: fail2ban
 
-- name: fail2ban local config (defaults)
+- name: fail2ban defaults
   template:
     src: etc/fail2ban/jail.local.j2
     dest: /etc/fail2ban/jail.local
+  when: fail2ban_defaults is mapping
   tags: fail2ban
 
 - name: fail2ban jail config (jails)

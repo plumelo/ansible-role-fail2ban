@@ -5,10 +5,10 @@ fail2ban_pkgs:
 fail2ban_extra_pkgs: []
 
 #Fail2ban daemon config
-fail2ban_config: {}
+fail2ban_config:
 
 #Fail2ban local defaults(jails)
-fail2ban_defaults: {}
+fail2ban_defaults:
 
 fail2ban_jails: {}
 fail2ban_filters: {}

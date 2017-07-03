@@ -1,6 +1,7 @@
 #{{ ansible_managed }}
-
+{% if fail2ban_defaults.keys()|length > 0 %}
 [DEFAULT]
 {% for option, value in fail2ban_defaults.iteritems() %}
 {{option}}={{value}}
 {% endfor %}
+{% endif%}

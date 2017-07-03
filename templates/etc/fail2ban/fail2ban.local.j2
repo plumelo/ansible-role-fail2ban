@@ -1,6 +1,7 @@
 #{{ ansible_managed }}
-
+{%if fail2ban_config.keys() | length > 0 %}
 [Definition]
 {% for option, value in fail2ban_config.iteritems() %}
 {{option}}={{value}}
 {% endfor %}
+{% endif %}
