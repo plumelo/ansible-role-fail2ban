@@ -1,6 +1,6 @@
 #{{ ansible_managed }}
 
 [Definition]
-{% for option, value in fail2ban_filters.iteritems() %}
-{{option}}={{value}}
+{% for key,value in item.value.iteritems() %}
+{{ key }}={{ value }}
 {% endfor %}
