@@ -10,9 +10,10 @@
 
 - name: Install fail2ban
   apt:
-    pkg: fail2ban
+    pkg: '{{item }}'
     state: present
     update_cache: true
+  with_items: '{{ fail2ban_pkgs|union(fail2ban_extra_pkgs) }}'
   notify:
     - restart fail2ban
   tags: fail2ban
